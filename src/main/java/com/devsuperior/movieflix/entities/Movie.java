@@ -1,10 +1,18 @@
 package com.devsuperior.movieflix.entities;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_movie")
@@ -15,22 +23,26 @@ public class Movie implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String title;
-	private String subTitle;
+	private String subTitle;	
 	private Integer year;
 	private String imgUrl;
+	
+	@Column(columnDefinition="TEXT")
 	private String synopsis;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "genre_id")
 	private Genre genre;
-
+	
 	@OneToMany(mappedBy = "movie")
 	private List<Review> reviews = new ArrayList<>();
-
+	
 	public Movie() {
+		
 	}
 
-	public Movie(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis) {
+	public Movie(final Long id, final String title, final String subTitle, final Integer year, final String imgUrl, final String synopsis) {
+		super();
 		this.id = id;
 		this.title = title;
 		this.subTitle = subTitle;
@@ -43,7 +55,7 @@ public class Movie implements Serializable {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -51,7 +63,7 @@ public class Movie implements Serializable {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
@@ -59,7 +71,7 @@ public class Movie implements Serializable {
 		return subTitle;
 	}
 
-	public void setSubTitle(String subTitle) {
+	public void setSubTitle(final String subTitle) {
 		this.subTitle = subTitle;
 	}
 
@@ -67,7 +79,7 @@ public class Movie implements Serializable {
 		return year;
 	}
 
-	public void setYear(Integer year) {
+	public void setYear(final Integer year) {
 		this.year = year;
 	}
 
@@ -75,7 +87,7 @@ public class Movie implements Serializable {
 		return imgUrl;
 	}
 
-	public void setImgUrl(String imgUrl) {
+	public void setImgUrl(final String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
 
@@ -83,36 +95,36 @@ public class Movie implements Serializable {
 		return synopsis;
 	}
 
-	public void setSynopsis(String synopsis) {
+	public void setSynopsis(final String synopsis) {
 		this.synopsis = synopsis;
-	}
-
-	public List<Review> getReviews() {
-		return reviews;
 	}
 
 	public Genre getGenre() {
 		return genre;
 	}
 
-	public void setGenre(Genre genre) {
-		this.genre = genre;
+	public void setGenre(final Genre genre) {
+		this.genre = genre;		
 	}
 
+	public List<Review> getReviews() {
+	    return reviews;
+	  }
 	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+	  public boolean equals(final Object o) {
+	    if (this == o) {
+	      return true;
+	    }
+	    if (o == null || getClass() != o.getClass()) {
+	      return false;
+	    }
+	    final Movie movie = (Movie) o;
+	    return Objects.equals(id, movie.id);
+	  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Movie other = (Movie) obj;
-		return Objects.equals(id, other.id);
-	}
+	  @Override
+	  public int hashCode() {
+	    return Objects.hash(id);
+	  }
+		
 }

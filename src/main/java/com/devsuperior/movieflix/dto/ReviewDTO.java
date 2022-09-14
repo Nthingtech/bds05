@@ -1,70 +1,60 @@
 package com.devsuperior.movieflix.dto;
 
-import com.devsuperior.movieflix.entities.Review;
-
 import java.io.Serializable;
 
+import com.devsuperior.movieflix.entities.Movie;
+import com.devsuperior.movieflix.entities.Review;
+
 public class ReviewDTO implements Serializable {
-    private  static  final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private String text;
-    private Long userId;
+	private Long id;
+	private String text;
+	private Movie movie;
+	
 
-    private Long movieId;
+	public ReviewDTO() {
+		
+	}
+	
+	public ReviewDTO(final Long id, final String text, final Movie movie) {
+		super();
+		this.id = id;
+		this.text = text;
+		this.movie = movie;
+	}
 
-    public ReviewDTO() {
-    }
+	public ReviewDTO(Review entity) {
+		id = entity.getId();
+		text = entity.getText();
+		movie = entity.getMovie();
+		
+	}
 
-    public ReviewDTO(Long id, String text, Long userId, Long movieId) {
-        this.id = id;
-        this.text = text;
-        this.userId = userId;
-        this.movieId = movieId;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public ReviewDTO(Review entity) {
-        id = entity.getId();
-        text = entity.getText();
-        userId = entity.getUser().getId();
-        movieId = entity.getMovie().getId();
-    }
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setText(final String text) {
+		this.text = text;
+	}
 
-    public String getText() {
-        return text;
-    }
+	public Movie getMovie() {
+		return movie;
+	}
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(Long movieId) {
-        this.movieId = movieId;
-    }
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+	
+	
+		
 }
-
-
-
-
-
-

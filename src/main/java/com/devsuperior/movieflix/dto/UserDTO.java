@@ -1,53 +1,64 @@
 package com.devsuperior.movieflix.dto;
 
-import com.devsuperior.movieflix.entities.User;
-
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+import com.devsuperior.movieflix.entities.User;
+
 public class UserDTO implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private String name;
-    private String email;
+	private Long id;
+	
+	@NotBlank(message = "Campo obrigatório")
+	private String name;
+	
+	@Email(message = "Favor digitar um email válido")
+	private String email;
+		
+	public UserDTO() {
+		
+	}
 
-    public UserDTO() {
-    }
+	public UserDTO(Long id, @NotBlank(message = "Campo obrigatório") String name,
+			@Email(message = "Favor digitar um email válido") String email) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		
+	}
+	
+	public UserDTO(User entity) {
+		id = entity.getId();
+		name = entity.getName();
+		email = entity.getEmail() ;
+		
+	}
 
-    public UserDTO(Long id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public UserDTO(User entity) {
-        id = entity.getId();
-        name = entity.getName();
-        email = entity.getEmail();
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+	public void setEmail(String email) {
+		this.email = email;
+	}
+		
 }
